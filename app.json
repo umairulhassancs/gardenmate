@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "GardenMateExpo",
+    "slug": "GardenMateExpo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.ghanwa.gardenmateexpo",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ghanwa.gardenmateexpo",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "GardenMate needs your location to show accurate weather conditions for your plants.",
+        "NSLocationAlwaysUsageDescription": "GardenMate needs your location to show weather conditions for your plants.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "GardenMate needs your location to provide weather updates for your plants."
+      }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow GardenMate to use your location to show weather conditions for your plants.",
+          "isAndroidBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "786886994984",
+    "firebase_url": "https://gardenmate-64983-default-rtdb.firebaseio.com",
+    "project_id": "gardenmate-64983",
+    "storage_bucket": "gardenmate-64983.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786886994984:android:df51bdb71d702c088d991d",
+        "android_client_info": {
+          "package_name": "com.sdit.spintyu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786886994984-o93ssc8765kbm9sn2bf7mtiighfcmvs4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEClqdrcin7lN1Dx6NQls5Rj3CowOp3s0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786886994984-o93ssc8765kbm9sn2bf7mtiighfcmvs4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

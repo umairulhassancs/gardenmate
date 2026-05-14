@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Helper function to check if user is vendor
+    function isVendor() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'vendor';
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // Vendors collection
+    match /vendors/{vendorId} {
+      // Admin can read and write all vendors
+      allow read, write: if isAdmin();
+
+      // Vendors can read their own data
+      allow read: if isSignedIn() && request.auth.uid == vendorId;
+
+      // Vendors can update their own payment data
+      allow update: if isSignedIn() && request.auth.uid == vendorId;
+    }
+
+    // Plants collection
+    match /plants/{plantId} {
+      allow read: if true; // Anyone can read plants
+      allow write: if isSignedIn() && (isVendor() || isAdmin());
+    }
+
+    // Complaints collection
+    match /complaints/{complaintId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isAdmin() || (isSignedIn() && resource.data.vendorId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Feedbacks collection
+    match /feedbacks/{feedbackId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isAdmin() || (isSignedIn() && resource.data.vendorId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Posts collection (Community)
+    match /posts/{postId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isSignedIn() &&
+        (request.auth.uid == resource.data.userId || isAdmin());
+    }
+
+    // Orders collection
+    match /orders/{orderId} {
+      allow read: if isSignedIn() &&
+        (request.auth.uid == resource.data.userId ||
+         request.auth.uid == resource.data.vendorId ||
+         isAdmin());
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() &&
+        (request.auth.uid == resource.data.vendorId || isAdmin());
+    }
+  }
+}
